@@ -10,19 +10,20 @@ let today: object = new Date();
 const tele = Telegram.WebApp;
 
 
+
 const App: FC = () => {
 
 
   useEffect (() => {
     tele.ready();
   })
-  tele.MainButton.text = "Hey"
+  tele.MainButton.text = "ll"
   tele.MainButton.show()
   const [value, setValue] = useState('');
   const [todos, setTodos] = useState<ITodo[]>([]);
   const addTodo = () => {
 
-    if (value !== '') 
+  if (value !== '') 
     {
       setTodos(todos => [
       {
@@ -64,7 +65,7 @@ const App: FC = () => {
               top: '24%',
               alignItems:"center"}}>
           <TextField 
-                defaultValue={value} 
+                defaultValue={value}
                 onChange={ (e) => setValue(e.target.value)}
                 inputProps={{ 
                     style: { 
@@ -74,12 +75,12 @@ const App: FC = () => {
                         color: 'black'}}} 
                 focused margin="dense"/> 
             <Button sx={{m: 1}} variant="contained" onClick = {addTodo} >Add</Button></div>
-      <div style={{
-        position: 'fixed',
-        display:"flex", 
-        left: '37.5%', 
-        top: '31%'}}>
-          <ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/></div>
+        <div style={{
+          position: 'fixed',
+          display:"flex", 
+          left: '37.5%', 
+          top: '31%'}}>
+      <ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/></div>
     </div>
   );
 }
