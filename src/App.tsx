@@ -21,12 +21,18 @@ const App: FC = () => {
   const [value, setValue] = useState('');
   const [todos, setTodos] = useState<ITodo[]>([]);
   const addTodo = () => {
-    setTodos([...todos, {
-      id: Date.now(),
-      title: value,
-      complete: false,
-    }])
-    setValue('');
+
+    if (value !== '') 
+    {
+      setTodos(todos => [
+      {
+        id: Date.now(),
+        title: value,
+        complete: false,
+      },
+      ...todos,
+     ])
+    setValue('');}
   }
   const removeTodo = (id: number): void => {
     setTodos(todos.filter(todo => todo.id !== id))
@@ -44,27 +50,33 @@ const App: FC = () => {
 
 
   return (
-    <div className="App" style={{
-      position: 'fixed', left: '50%', top: '15%',
-      transform: 'translate(-50%, -50%)', color: 'rgb(24, 213, 224)'
-    }}>
-      <header>
-          <h1 style={{fontFamily: 'Tahoma', color: ''}}>ToDo App</h1>
-      </header>
-      <div className="input-text-wrapper" style={{display:"flex", alignItems:"center"}}>
-      <TextField 
-            defaultValue={value} 
-            onChange={ (e) => setValue(e.target.value)}
-            inputProps={{ 
-                style: { 
-                    width: 300, 
-                    height: 5, 
-                    fontFamily: 'arial', 
-                    color: 'black'}}} 
-            focused margin="dense" /> 
-      <Box mt={1}></Box>
-        <Button variant="contained" onClick = {addTodo} >Add</Button></div>
-      <ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/>
+    <div >
+      <Box>
+        <h1 style={{
+          fontFamily: 'Tahoma', 
+          color: 'rgb(24, 213, 224)', 
+          position: 'fixed', 
+          left: '45%', 
+          top: '15%',
+          }}>ToDo App</h1>
+            <div style={{
+              position: 'fixed',
+              display:"flex", 
+              left: '38.5%', 
+              top: '24%',
+              alignItems:"center"}}>
+          <TextField 
+                defaultValue={value} 
+                onChange={ (e) => setValue(e.target.value)}
+                inputProps={{ 
+                    style: { 
+                        width: 300, 
+                        height: 5, 
+                        fontFamily: 'arial', 
+                        color: 'black'}}} 
+                focused margin="dense"/> 
+            <Button variant="contained" onClick = {addTodo} >Add</Button></div>
+      <div style={{position: 'fixed',display:"flex", left: '37.5%', top: '31%'}}><ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/></div></Box>
     </div>
   );
 }

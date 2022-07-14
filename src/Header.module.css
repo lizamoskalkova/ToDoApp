@@ -1,0 +1,31 @@
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(77, 114, 184);
+    padding: 1.2rem 3rem 0.6rem;
+
+    
+}
+.header .wrapper {
+    padding-left: 16px;
+    width: calc(75% - 16px);
+    border-radius: 30px;
+    background-color: rgb(41, 83, 138);
+    position: relative
+}
+.header .wrapper >input {
+    width: 10%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+}
+
+.header .wrapper >input::placeholder {
+   color: rgb(109, 153, 182);
+}
