@@ -7,8 +7,9 @@ import DeleteIcon  from '@mui/icons-material/Delete';
 interface ITodoItem extends ITodo {
     removeTodo: (id: number) => void;
     toggleTodo: (id: number) => void;
-
 }
+
+
 const ToDoItem: FC<ITodoItem> = (props) => {
     const {id, title,complete, removeTodo, toggleTodo} = props;
     return <div>

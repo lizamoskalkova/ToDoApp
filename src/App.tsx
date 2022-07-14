@@ -42,8 +42,7 @@ const App: FC = () => {
       if (todo.id != id) return todo;
       return {
         ...todo,
-        complete: !todo.complete
-
+        complete: !todo.complete,
       }
     }))
   }
@@ -51,10 +50,9 @@ const App: FC = () => {
 
   return (
     <div >
-      <Box>
         <h1 style={{
           fontFamily: 'Tahoma', 
-          color: 'rgb(24, 213, 224)', 
+          color: '#229ED9', 
           position: 'fixed', 
           left: '45%', 
           top: '15%',
@@ -75,8 +73,13 @@ const App: FC = () => {
                         fontFamily: 'arial', 
                         color: 'black'}}} 
                 focused margin="dense"/> 
-            <Button variant="contained" onClick = {addTodo} >Add</Button></div>
-      <div style={{position: 'fixed',display:"flex", left: '37.5%', top: '31%'}}><ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/></div></Box>
+            <Button sx={{m: 1}} variant="contained" onClick = {addTodo} >Add</Button></div>
+      <div style={{
+        position: 'fixed',
+        display:"flex", 
+        left: '37.5%', 
+        top: '31%'}}>
+          <ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/></div>
     </div>
   );
 }
