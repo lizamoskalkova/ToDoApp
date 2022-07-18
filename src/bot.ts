@@ -1,8 +1,12 @@
-const { Telegraf } = require('telegraf')
-const TOKEN = '5176697287:AAFZMyO6zBxllSbW_YBtpH8BA6MdLbbY8zg'
+/*import { config as configDotenv } from "dotenv";
 
-const bot = new Telegraf(TOKEN)
+const { Telegraf } = require('telegraf')
+
+const token = process.env.TOKEN;
+const webapp_url = process.env.WEBAPP_URL;
+
+const bot = new Telegraf(token)
 bot.start((ctx: { reply: (arg0: string) => any }) => ctx.reply('Welcome'))
 bot.launch()
-
+*/
 export {}
