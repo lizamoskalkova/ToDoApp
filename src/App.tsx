@@ -55,21 +55,21 @@ const App: FC = () => {
           fontFamily: 'Tahoma', 
           color: '#229ED9', 
           position: 'fixed', 
-          left: '45%', 
-          top: '15%',
+          left: '30%', 
+          top: '20%',
           }}>ToDo App</h1>
             <div style={{
               position: 'fixed',
               display:"flex", 
-              left: '38.5%', 
-              top: '24%',
+              left: '10.5%', 
+              top: '30%',
               alignItems:"center"}}>
           <TextField 
                 defaultValue={value}
                 onChange={ (e) => setValue(e.target.value)}
                 inputProps={{ 
                     style: { 
-                        width: 300, 
+                        width: 210, 
                         height: 5, 
                         fontFamily: 'arial', 
                         color: 'black'}}} 
