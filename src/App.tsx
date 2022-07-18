@@ -8,7 +8,7 @@ let today: object = new Date();
 
 
 const tele = Telegram.WebApp;
-
+console.log(Telegram.WebApp.sendData)
 
 
 const App: FC = () => {
@@ -47,6 +47,7 @@ const App: FC = () => {
       }
     }))
   }
+
 
 
   return (
