@@ -3,6 +3,8 @@ import {ITodo} from './data';
 import { ToDoList } from './todolist';
 import { TextField, Button, Box } from '@mui/material';
 import { AnyARecord } from 'dns';
+import { keyboard } from 'telegraf/typings/markup';
+import { NoEncryption } from '@mui/icons-material';
 
 let today: object = new Date();
 
@@ -17,12 +19,11 @@ const App: FC = () => {
   useEffect (() => {
     tele.ready();
   })
-  tele.MainButton.text = "ll"
+  tele.MainButton.text = "ToDo App"
   tele.MainButton.show()
   const [value, setValue] = useState('');
   const [todos, setTodos] = useState<ITodo[]>([]);
-  const addTodo = () => {
-
+  const addTodo = ( ) => {
   if (value !== '') 
     {
       setTodos(todos => [
@@ -33,7 +34,8 @@ const App: FC = () => {
       },
       ...todos,
      ])
-    setValue('');}
+  }
+  setValue("");
   }
   const removeTodo = (id: number): void => {
     setTodos(todos.filter(todo => todo.id !== id))
@@ -47,6 +49,20 @@ const App: FC = () => {
       }
     }))
   }
+  const handleKeyDown =(e: any) => {
+    if(e.key == 'Enter') 
+      {
+        setTodos(todos => [
+        {
+          id: Date.now(),
+          title: value,
+          complete: false,
+        },
+        ...todos,
+       ])}
+    else
+      console.log('aa')
+}
 
 
 
@@ -66,8 +82,9 @@ const App: FC = () => {
               top: '30%',
               alignItems:"center"}}>
           <TextField 
-                defaultValue={value}
+                value={value}
                 onChange={ (e) => setValue(e.target.value)}
+                onKeyDown = {handleKeyDown}
                 inputProps={{ 
                     style: { 
                         width: 210, 
@@ -79,8 +96,9 @@ const App: FC = () => {
         <div style={{
           position: 'fixed',
           display:"flex", 
-          left: '37.5%', 
-          top: '31%'}}>
+          left: '8.5%',
+          width: 1000, 
+          top: '37%'}}>
       <ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/></div>
     </div>
   );

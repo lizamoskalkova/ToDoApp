@@ -18,7 +18,7 @@ const ToDoItem: FC<ITodoItem> = (props) => {
             defaultValue={title} 
             inputProps={{ 
                 style: { 
-                    width: 300, 
+                    width: 200, 
                     height: 5, 
                     fontFamily: 'arial', 
                     color: 'black'}}} 
