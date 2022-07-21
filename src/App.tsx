@@ -57,7 +57,9 @@ const App: FC = () => {
           complete: false,
         },
         ...todos,
-       ])}
+       ])
+       setValue("");
+      }
 }
 
   return (
