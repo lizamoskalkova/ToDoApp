@@ -1,15 +1,13 @@
 import React, { FC, useState, useEffect } from 'react';
 import {ITodo} from './data';
 import { ToDoList } from './todolist';
+import ICanDevApp from "icandev-js-sdk";
 import { TextField, Button, Box } from '@mui/material';
-import { AnyARecord } from 'dns';
-import { keyboard } from 'telegraf/typings/markup';
-import { NoEncryption } from '@mui/icons-material';
 
 let today: object = new Date();
 
 
-const tele = Telegram.WebApp;
+const tele:any = Telegram.WebApp;
 console.log(Telegram.WebApp.sendData)
 
 
@@ -19,7 +17,7 @@ const App: FC = () => {
   useEffect (() => {
     tele.ready();
   })
-  tele.MainButton.text = "ToDo App"
+  tele.MainButton.text = "Remaining tasks"
   tele.MainButton.show()
   const [value, setValue] = useState('');
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -60,11 +58,7 @@ const App: FC = () => {
         },
         ...todos,
        ])}
-    else
-      console.log('aa')
 }
-
-
 
   return (
     <div >
@@ -73,7 +67,7 @@ const App: FC = () => {
           color: '#229ED9', 
           position: 'fixed', 
           left: '30%', 
-          top: '20%',
+          top: '15%',
           }}>ToDo App</h1>
             <div style={{
               position: 'fixed',
@@ -98,7 +92,7 @@ const App: FC = () => {
           display:"flex", 
           left: '8.5%',
           width: 1000, 
-          top: '37%'}}>
+          top: '40%'}}>
       <ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/></div>
     </div>
   );
