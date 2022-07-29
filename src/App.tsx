@@ -1,26 +1,31 @@
-import React, { FC, useState, useEffect } from 'react';
+import  { FC, useState, useEffect, useCallback } from 'react';
 import {ITodo} from './data';
 import { ToDoList } from './todolist';
-import ICanDevApp from "icandev-js-sdk";
+import  { RowRequest } from "icandev-js-sdk";
 import { TextField, Button, Box } from '@mui/material';
+import {  database } from './icandev';
+
 
 let today: object = new Date();
 
-
 const tele:any = Telegram.WebApp;
-console.log(Telegram.WebApp.sendData)
 
 
 const App: FC = () => {
 
 
+  tele.MainButton.text = "Main Button"
+  tele.MainButton.show()
+ 
+  const a  = Telegram.WebApp.initDataUnsafe.user?.first_name;
+  console.log(a);
   useEffect (() => {
     tele.ready();
   })
-  tele.MainButton.text = "Remaining tasks"
-  tele.MainButton.show()
   const [value, setValue] = useState('');
   const [todos, setTodos] = useState<ITodo[]>([]);
+  
+   
   const addTodo = ( ) => {
   if (value !== '') 
     {
@@ -34,6 +39,7 @@ const App: FC = () => {
      ])
   }
   setValue("");
+  
   }
   const removeTodo = (id: number): void => {
     setTodos(todos.filter(todo => todo.id !== id))
@@ -45,7 +51,23 @@ const App: FC = () => {
         ...todo,
         complete: !todo.complete,
       }
-    }))
+    }
+    ))
+  }
+
+  function strikeThrough(text: string) {
+    return text
+      .split('')
+      .map((char: string) => char + '\u0336')
+      .join('')
+  }
+  const handleClick = (id: number): void => {
+     todos.map(todo => {
+       if (todo.id === id && todo.complete === false) 
+          todo.title = strikeThrough(todo.title)
+       else
+          todo.title = todo.title.replace(/[\u0336]/g, '')
+      })
   }
   const handleKeyDown =(e: any) => {
     if(e.key == 'Enter') 
@@ -59,7 +81,24 @@ const App: FC = () => {
         ...todos,
        ])
        setValue("");
+       database.table<ITodo>("taskdata").addRow(rowrequest);
       }
+}
+const completedtodo = todos.filter(todo => todo.complete == true);
+const found = todos.some(r=> completedtodo.indexOf(r) >= 0)
+const rowrequest: RowRequest= {
+  'data': {'title': value, 'isdone': found ? 'true' : 'false'} 
+}
+//console.log(found);
+/*const handleSubmit = useCallback((event:  any) => {
+  //event.preventDefault();
+  database.table<ITodo>("taskdata").updateRow(rowId, rowrequest)
+}, [value])*/
+
+;
+const onck= (e: any) =>{
+  addTodo();
+  database.table<ITodo>("taskdata").addRow(rowrequest);
 }
 
   return (
@@ -88,16 +127,18 @@ const App: FC = () => {
                         fontFamily: 'arial', 
                         color: 'black'}}} 
                 focused margin="dense"/> 
-            <Button sx={{m: 1}} variant="contained" onClick = {addTodo} >Add</Button></div>
-        <div style={{
+            <Button sx={{m: 1}} variant="contained" onClick = {onck} >Add</Button></div>
+        <div className="todo" style={{
           position: 'fixed',
           display:"flex", 
           left: '8.5%',
           width: 1000, 
           top: '40%'}}>
-      <ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/></div>
+      <ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo} handleClick ={handleClick}/></div>
     </div>
   );
 }
 
 export default App;
+
+

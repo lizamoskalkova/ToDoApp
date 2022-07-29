@@ -7,15 +7,17 @@ import DeleteIcon  from '@mui/icons-material/Delete';
 interface ITodoItem extends ITodo {
     removeTodo: (id: number) => void;
     toggleTodo: (id: number) => void;
+    handleClick: (id: number) => void;
 }
 
 
+
 const ToDoItem: FC<ITodoItem> = (props) => {
-    const {id, title,complete, removeTodo, toggleTodo} = props;
+    const {id, title,complete, removeTodo, toggleTodo, handleClick} = props;
     return <div>
-        <Checkbox id = "check" checked = {complete} onChange={() => toggleTodo(id)} />
+        <Checkbox id = "check" checked = {complete} onChange={() => toggleTodo(id)} onClick ={() => handleClick(id)} />
         <TextField 
-            defaultValue={title} 
+            value={title} 
             inputProps={{ 
                 style: { 
                     width: 200, 
