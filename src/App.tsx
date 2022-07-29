@@ -13,7 +13,7 @@ const tele:any = Telegram.WebApp;
 
 const App: FC = () => {
 
-
+  
   tele.MainButton.text = "Main Button"
   tele.MainButton.show()
  
@@ -43,6 +43,7 @@ const App: FC = () => {
   }
   const removeTodo = (id: number): void => {
     setTodos(todos.filter(todo => todo.id !== id))
+
   }
   const toggleTodo = (id: number): void =>{
     setTodos(todos.map(todo => {
@@ -86,8 +87,10 @@ const App: FC = () => {
 }
 const completedtodo = todos.filter(todo => todo.complete == true);
 const found = todos.some(r=> completedtodo.indexOf(r) >= 0)
+const b = 'true'
+const paidBool = b === 'true' ? true : false;
 const rowrequest: RowRequest= {
-  'data': {'title': value, 'isdone': found ? 'true' : 'false'} 
+  'data': {'title': value} 
 }
 //console.log(found);
 /*const handleSubmit = useCallback((event:  any) => {
