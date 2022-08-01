@@ -1,18 +1,28 @@
-import { Telegraf, Telegram } from "telegraf";
+import { config as configDotenv } from "dotenv";
 
-const token = '5581809099:AAH21cx-eIWPaAXDsMDCrZiEcsk9i4pOM_g';
+
+const { Telegraf } = require('telegraf'); 
+const token = process.env.REACT_APP_TOKEN;
+const web_link = process.env.REACT_APP_WEB_LINK;
+
+if (process.env.NODE_ENV != "production") configDotenv();
+
+if (!token) {
+    console.error("Please provide token");
+
+    process.exit(1);
+}
+
+if (!web_link) {
+    console.log("Please provide url");
+
+    process.exit(1);
+}
+
 const bot = new Telegraf(token);
-
-const web_link = 'https://2ff4db87-e830-4de6-835c-5fd545d3e5cb.i-can.dev/';
-
-bot.start((ctx) => 
-    ctx.reply("Please enter your task into the App!", {
-        reply_markup: {
-            inline_keyboard: [[{ text: "Todo", web_app: {url: web_link} }]]
-        },
-    })
+bot.start(ctx =>
+    ctx.reply("Please enter your coolest task into the App!")
 );
-
 bot.launch();
 
 

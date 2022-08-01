@@ -18,14 +18,15 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": false,
     "noEmit": true,
+    "noImplicitAny": false,
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-  ]
+    "src","types/react-app-env.d.ts"
+, "Bot/bot.ts"  ]
 }

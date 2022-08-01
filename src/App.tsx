@@ -4,6 +4,7 @@ import { ToDoList } from './todolist';
 import  { RowRequest } from "icandev-js-sdk";
 import { TextField, Button, Box } from '@mui/material';
 import {  database } from './icandev';
+import { tgUserInfo } from './tg';
 
 
 let today: object = new Date();
@@ -13,12 +14,10 @@ const tele:any = Telegram.WebApp;
 
 const App: FC = () => {
 
-  
-  tele.MainButton.text = "Main Button"
+
+  tele.MainButton.text = "Main Buttons"
   tele.MainButton.show()
  
-  const a  = Telegram.WebApp.initDataUnsafe.user?.first_name;
-  console.log(a);
   useEffect (() => {
     tele.ready();
   })
@@ -82,26 +81,19 @@ const App: FC = () => {
         ...todos,
        ])
        setValue("");
-       database.table<ITodo>("taskdata").addRow(rowrequest);
+       database.table("taskdata").addRow(rowrequest);
       }
 }
 const completedtodo = todos.filter(todo => todo.complete == true);
 const found = todos.some(r=> completedtodo.indexOf(r) >= 0)
-const b = 'true'
-const paidBool = b === 'true' ? true : false;
-const rowrequest: RowRequest= {
-  'data': {'title': value} 
-}
-//console.log(found);
-/*const handleSubmit = useCallback((event:  any) => {
-  //event.preventDefault();
-  database.table<ITodo>("taskdata").updateRow(rowId, rowrequest)
-}, [value])*/
 
-;
+const rowrequest: RowRequest= {
+  'data': {'title': value, 'user_id': String(tele.initDataUnsafe.user?.id ?? "*"), 'content': String(tele.initDataUnsafe.user?.first_name ?? "*")} 
+}
+
 const onck= (e: any) =>{
   addTodo();
-  database.table<ITodo>("taskdata").addRow(rowrequest);
+  database.table("taskdata").addRow(rowrequest);
 }
 
   return (
