@@ -38,7 +38,7 @@ export default function Drawer() {
             <div>
                 <Box textAlign = 'center' p={2}>
                  User
-                 <Avatar src={user._avatarLink} />
+                
                 </Box>
                 <Divider />
                 <List>
