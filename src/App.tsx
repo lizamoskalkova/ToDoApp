@@ -16,7 +16,7 @@ const tele:any = Telegram.WebApp;
 const App: FC = () => {
 
 
-  tele.MainButton.text = "Main Buttons"
+  tele.MainButton.text = "Main Button"
   tele.MainButton.show()
  
   useEffect (() => {
