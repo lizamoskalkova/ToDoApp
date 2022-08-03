@@ -2,7 +2,7 @@ import  { FC, useState, useEffect, useCallback } from 'react';
 import {ITodo} from './data';
 import { ToDoList } from './todolist';
 import  { RowRequest } from "icandev-js-sdk";
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button, Box, AppBar, Toolbar, Typography } from '@mui/material';
 import {  database } from './icandev';
 import { tgUserInfo } from './tg';
 import Drawer from './Drawer';
@@ -14,10 +14,6 @@ const tele:any = Telegram.WebApp;
 
 
 const App: FC = () => {
-
-
-  tele.MainButton.text = "Main Button"
-  tele.MainButton.show()
  
   useEffect (() => {
     tele.ready();
@@ -99,16 +95,22 @@ const onck= (e: any) =>{
 
   return (
     <div >
-     
-        <h1 style={{
-          fontFamily: 'Tahoma', 
-          color: '#229ED9', 
-          position: 'fixed', 
-          left: '30%', 
-          top: '15%',
-          }}>ToDo App</h1>
-          <h2> <Drawer/> </h2>
-            <div style={{
+     <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar style ={{
+          justifyContent: 'space-between ',
+        }}>
+          <Drawer/>
+           <Typography style={{
+              fontFamily: 'Tahoma', 
+              color: 'white', 
+              alignContent: 'center',
+             }}>ToDo App
+           </Typography> 
+        </Toolbar>
+       </AppBar>
+      </Box>
+      <div style={{
               position: 'fixed',
               display:"flex", 
               left: '10.5%', 
