@@ -37,7 +37,7 @@ export default function Drawer() {
              onOpen ={() => console.log()}>
             <div>
                 <Box textAlign = 'center' p={2}>
-                 User
+                 {Telegram.WebApp.initDataUnsafe.user?.first_name}
                 
                 </Box>
                 <Divider />
