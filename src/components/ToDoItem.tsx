@@ -1,6 +1,6 @@
 import { ITodo } from "../data/data";
 import { FC } from "react";
-import { TextField, Checkbox } from '@mui/material';
+import { TextField, Checkbox, Stack } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon  from '@mui/icons-material/Delete';
 
@@ -13,11 +13,10 @@ interface ITodoItem extends ITodo {
 
 
 const ToDoItem: FC<ITodoItem> = (props) => {
-    const {id, title,complete, removeTodo, toggleTodo, handleClick} = props;
+    const {id, title, complete, dueDate, removeTodo, toggleTodo, handleClick} = props;
     return <div>
-        <Checkbox id = "check" checked = {complete} onChange={() => toggleTodo(id)} onClick ={() => handleClick(id)} />
         <TextField 
-            label = 'none'
+            helperText = {'Completion Date: '+ String(dueDate).substring(0,10)}
             value={title} 
             inputProps={{ 
                 style: { 
@@ -26,7 +25,8 @@ const ToDoItem: FC<ITodoItem> = (props) => {
                     fontFamily: 'arial', 
                     color: 'black'}}} 
             focused margin="dense" /> 
-        <IconButton aria-label="delete" onClick = {() => removeTodo(id)}>
+            <Checkbox id = "check" checked = {complete} onChange={() => toggleTodo(id)} onClick ={() => handleClick(id)} />
+        <IconButton  aria-label="delete" onClick = {() => removeTodo(id)}>
             <DeleteIcon /></IconButton>
     </div> 
 }

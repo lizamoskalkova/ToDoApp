@@ -9,6 +9,8 @@ import { DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 
+
+
 let today: object = new Date();
 
 const tele:any = Telegram.WebApp;
@@ -20,7 +22,6 @@ const App: FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   
-   
   const addTodo = ( ) => {
   if (value !== '') 
     {
@@ -29,6 +30,7 @@ const App: FC = () => {
         id: Date.now(),
         title: value,
         complete: false,
+        dueDate: selectedDate,
       },
       ...todos,
      ])
@@ -72,6 +74,7 @@ const App: FC = () => {
           id: Date.now(),
           title: value,
           complete: false,
+          dueDate: selectedDate,
         },
         ...todos,
        ])
@@ -126,9 +129,9 @@ const onck= (e: any) =>{
                         color: 'black'}}} 
                         focused margin="dense"/> 
            <LocalizationProvider dateAdapter={AdapterDateFns}>
-           <Stack spacing={4} sx={{ width: '50px',}}>
+           <Stack spacing={4} sx={{ width: '50px'}}>
                 <DatePicker 
-                  label="Due to"
+                  
                   value={selectedDate}
                   onChange={(newValue) => {
                     setSelectedDate(newValue);

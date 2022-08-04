@@ -1,19 +1,16 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 import { ITodo } from "../data/data";
+import { database } from "../icandev";
+
+class TodoStore {
+    
 
 
-class Store {
-    todos: ITodo[] = [];
-    newToDo: string = "";
 
-    constructor () {
-        makeAutoObservable(this);
-    }
-    addToDo() {
-        this.newToDo = "";
-    }
 }
-
-const store = new Store();
-
+const store = new TodoStore();
 export default store;
+
+console.log(database.table('taskdata').getPage(1,1000));
+
+

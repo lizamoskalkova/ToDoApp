@@ -9,11 +9,16 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Menu } from "@mui/icons-material";
+import { makeStyles } from "@mui/styles";
 
-
+const useStyles:any = makeStyles({
+    list: {
+        width: 250,
+    }
+});
 
 export default function Drawer() {
-
+    const classes = useStyles();
     const [open, setOpen] = useState<boolean>(false);
     return (
     <div>
@@ -30,7 +35,7 @@ export default function Drawer() {
              open = {open}
              onClose= {() => setOpen(false)}
              onOpen ={() => console.log()}>
-            <div>
+            <div className = {classes.list}>
                 <Box textAlign = 'center' p={2}>
                  {Telegram.WebApp.initDataUnsafe.user?.first_name}
                 
