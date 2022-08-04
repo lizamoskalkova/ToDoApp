@@ -1,6 +1,6 @@
-import { ITodo } from "./data";
+import { ITodo } from "../data/data";
 import { FC } from "react";
-import {ToDoItem} from './todoitem'
+import {ToDoItem} from './ToDoItem';
 
 
 interface ITodoListProps {

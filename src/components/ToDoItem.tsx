@@ -1,4 +1,4 @@
-import { ITodo } from "./data";
+import { ITodo } from "../data/data";
 import { FC } from "react";
 import { TextField, Checkbox } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -17,6 +17,7 @@ const ToDoItem: FC<ITodoItem> = (props) => {
     return <div>
         <Checkbox id = "check" checked = {complete} onChange={() => toggleTodo(id)} onClick ={() => handleClick(id)} />
         <TextField 
+            label = 'none'
             value={title} 
             inputProps={{ 
                 style: { 

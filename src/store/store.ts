@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { ITodo } from "../data";
+import { ITodo } from "../data/data";
 
 
 class Store {

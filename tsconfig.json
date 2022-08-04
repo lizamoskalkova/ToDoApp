@@ -28,5 +28,5 @@
   },
   "include": [
     "src","types/react-app-env.d.ts"
-, "Bot/bot.ts"  ]
+, "Bot/bot.ts", "types/index.d.ts"  ]
 }

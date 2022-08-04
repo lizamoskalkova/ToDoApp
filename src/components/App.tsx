@@ -1,11 +1,12 @@
 import  { FC, useState, useEffect, useCallback } from 'react';
-import {ITodo} from './data';
-import { ToDoList } from './todolist';
+import {ITodo} from '../data/data';
+import { ToDoList } from './ToDoList';
 import  { RowRequest } from "icandev-js-sdk";
-import { TextField, Button, Box, AppBar, Toolbar, Typography } from '@mui/material';
-import {  database } from './icandev';
-import { tgUserInfo } from './tg';
+import { TextField, Button, Box, AppBar, Toolbar, Typography, Stack } from '@mui/material';
+import {  database } from '../icandev';
 import Drawer from './Drawer';
+import { DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 
 let today: object = new Date();
@@ -15,11 +16,9 @@ const tele:any = Telegram.WebApp;
 
 const App: FC = () => {
  
-  useEffect (() => {
-    tele.ready();
-  })
   const [value, setValue] = useState('');
   const [todos, setTodos] = useState<ITodo[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   
    
   const addTodo = ( ) => {
@@ -39,7 +38,6 @@ const App: FC = () => {
   }
   const removeTodo = (id: number): void => {
     setTodos(todos.filter(todo => todo.id !== id))
-
   }
   const toggleTodo = (id: number): void =>{
     setTodos(todos.map(todo => {
@@ -113,7 +111,7 @@ const onck= (e: any) =>{
       <div style={{
               position: 'fixed',
               display:"flex", 
-              left: '10.5%', 
+              left: '5.5%', 
               top: '30%',
               alignItems:"center"}}>
           <TextField 
@@ -126,12 +124,28 @@ const onck= (e: any) =>{
                         height: 5, 
                         fontFamily: 'arial', 
                         color: 'black'}}} 
-                focused margin="dense"/> 
-            <Button sx={{m: 1}} variant="contained" onClick = {onck} >Add</Button></div>
+                        focused margin="dense"/> 
+           <LocalizationProvider dateAdapter={AdapterDateFns}>
+           <Stack spacing={4} sx={{ width: '50px',}}>
+                <DatePicker 
+                  label="Due to"
+                  value={selectedDate}
+                  onChange={(newValue) => {
+                    setSelectedDate(newValue);
+                  }}
+                  renderInput={(params) => <TextField size='small'{...params} />}
+                  />
+                  </Stack>
+                  </LocalizationProvider>
+                  <Button sx={{m: 1}} 
+                  variant="contained" 
+                  onClick = {onck} >Add
+              </Button>
+                </div>
         <div className="todo" style={{
           position: 'fixed',
           display:"flex", 
-          left: '8.5%',
+          left: '7.5%',
           width: 1000, 
           top: '40%'}}>
       <ToDoList items = {todos} removeTodo={removeTodo} toggleTodo={toggleTodo} handleClick ={handleClick}/></div>
