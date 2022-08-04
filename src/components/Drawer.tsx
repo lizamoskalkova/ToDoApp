@@ -10,6 +10,9 @@ import {
 import { useState } from "react";
 import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
+import {Link, useHistory} from 'react-router-dom';
+
+
 
 const useStyles:any = makeStyles({
     list: {
@@ -17,9 +20,14 @@ const useStyles:any = makeStyles({
     }
 });
 
-export default function Drawer() {
+const Drawer=()=> {
     const classes = useStyles();
     const [open, setOpen] = useState<boolean>(false);
+    const history = useHistory();
+    const handleRoute=(a: string) => {
+        history.push(a);
+        window.location.reload();
+      }
     return (
     <div>
         <IconButton
@@ -42,10 +50,10 @@ export default function Drawer() {
                 </Box>
                 <Divider />
                 <List>
-                    <ListItem button onClick ={() => console.log()}>
+                    <ListItem button onClick ={()=>handleRoute('/PreviousToDos')}>
                         <ListItemText primary={'Previous ToDos'}/>
                     </ListItem>
-                    <ListItem button onClick ={() => console.log()}>
+                    <ListItem button onClick ={()=>handleRoute('/ActualToDos')}>
                         <ListItemText primary={'Assigned ToDos'}/>
                     </ListItem>
                 </List>
@@ -55,3 +63,4 @@ export default function Drawer() {
     );
 }
 
+export default Drawer;
