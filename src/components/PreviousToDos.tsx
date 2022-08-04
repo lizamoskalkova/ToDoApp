@@ -1,15 +1,15 @@
 import React, { FC } from "react"
 import { database } from "../icandev";
+import { makeAutoObservable, runInAction } from "mobx";
+import { TableData } from "../store/store";
 
-const PreviousToDos: FC = () => {
 
-    const pageData= database.table('taskdata').getPage(1,1000);
-    
-        //console.log(pageData.rows[0].data.user_id)
+const PreviousToDos = () => {
+  
     return (
-    <div> ssslmklkmlkm</div>
-    )
+    <div>PreviousToDos</div>
+  )
 }
-//console.log(database.table('taskdata').getPage(1,1000).rows.data);
 
-export default PreviousToDos;
+export default PreviousToDos
+//console.log(database.table('taskdata').getPage(1,1000).rows.data);

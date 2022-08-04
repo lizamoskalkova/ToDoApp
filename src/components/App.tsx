@@ -86,7 +86,7 @@ const completedtodo = todos.filter(todo => todo.complete == true);
 const found = todos.some(r=> completedtodo.indexOf(r) >= 0)
 
 const rowrequest: RowRequest= {
-  'data': {'title': value, 'user_id': String(tele.initDataUnsafe.user?.id ?? "*"), 'content': String(tele.initDataUnsafe.user?.first_name ?? "*")} 
+  'data': {'title': value, 'user_id': String(tele.initDataUnsafe.user?.id ?? "*"), 'first_name': String(tele.initDataUnsafe.user?.first_name ?? "*")} 
 }
 
 const onck= (e: any) =>{
