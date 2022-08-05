@@ -10,8 +10,6 @@ interface ITodoItem extends ITodo {
     handleClick: (id: number) => void;
 }
 
-
-
 const ToDoItem: FC<ITodoItem> = (props) => {
     const {id, title, complete, dueDate, removeTodo, toggleTodo, handleClick} = props;
     return <div>

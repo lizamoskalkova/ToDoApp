@@ -1,11 +1,11 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { database } from "../icandev";
 
+
 export class TableData {
 
     public constructor() {
         makeAutoObservable(this);
-
         this.retrieveData();
     }
 
@@ -16,12 +16,10 @@ export class TableData {
 
         runInAction(() => {
         for (const row of pageData.rows) {
+            
             console.log(row.data.user_id)
-        
-        //const page = new Page(this, row.data.user_id, row.id);
-        //page.title = row.data.title;
-        //page.content = row.data.content;
         }
+        
         });
         //console.log(pageData.rows[0].data.user_id)
     }
