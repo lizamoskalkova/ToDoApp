@@ -15,6 +15,8 @@ let today: object = new Date();
 
 const tele:any = Telegram.WebApp;
 
+tele.expand();
+
 
 const App: FC = () => {
  
