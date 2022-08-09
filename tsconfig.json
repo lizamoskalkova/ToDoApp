@@ -15,7 +15,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "commonjs",
@@ -28,5 +28,5 @@
   },
   "include": [
     "src","types/react-app-env.d.ts"
-, "Bot/bot.ts", "types/index.d.ts"  ]
+, "Bot/bot.ts", "types/index.d.ts", "src/components/App.tsx"  ]
 }

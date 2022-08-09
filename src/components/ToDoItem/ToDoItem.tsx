@@ -5,17 +5,16 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 interface ITodoItem extends IToDo {
-  removeTodo: (id: number) => any;
-  toggleTodo: (id: number) => any;
-  handleClick: (id: number) => any;
+  removeTodo: (id: number) => void;
+  toggleTodo: (id: number) => void;
+  handleClick: (id: number) => void;
 }
 
-const ToDoItem: FC<ITodoItem> = ({id, title, complete, dueDate, removeTodo, toggleTodo, handleClick}) => {
-
+const ToDoItem: FC<ITodoItem> = ({ id, title, complete, dueDate, removeTodo, toggleTodo, handleClick }) => {
   return (
     <>
       <TextField
-        helperText={"Completion Date: " + dueDate.toString().substring(0, 10)}
+        helperText={"Completion Date: " + String(dueDate).substring(0, 10)}
         value={title}
         inputProps={{
           style: {
@@ -31,10 +30,10 @@ const ToDoItem: FC<ITodoItem> = ({id, title, complete, dueDate, removeTodo, togg
       <Checkbox
         id="check"
         checked={complete}
-        onChange={toggleTodo(id)}
-        onClick={handleClick(id)}
+        onChange={() => toggleTodo(id)}
+        onClick={() => handleClick(id)}
       />
-      <IconButton aria-label="delete" onClick={removeTodo(id)}>
+      <IconButton aria-label="delete" onClick={() => removeTodo(id)}>
         <DeleteIcon />
       </IconButton>
     </>

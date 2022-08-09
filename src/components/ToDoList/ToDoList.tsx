@@ -1,3 +1,4 @@
+import { Box } from "@mui/system";
 import { FC } from "react";
 import { ToDoItem } from "../ToDoItem/ToDoItem";
 
@@ -14,9 +15,9 @@ interface ITodoListProps {
   toggleTodo: (id: number) => void;
   handleClick: (id: number) => void;
 }
-const ToDoList: FC<ITodoListProps> = ({items, toggleTodo, removeTodo, handleClick}) => {
+const ToDoList: FC<ITodoListProps> = ({ items, toggleTodo, removeTodo, handleClick }) => {
   return (
-    <>
+    <Box sx={{ width: 400 }}>
       {items.map((todo) => (
         <ToDoItem
           key={todo.id}
@@ -26,7 +27,7 @@ const ToDoList: FC<ITodoListProps> = ({items, toggleTodo, removeTodo, handleClic
           {...todo}
         />
       ))}
-    </>
+    </Box>
   );
 };
 

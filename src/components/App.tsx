@@ -34,7 +34,7 @@ const App: React.FC = () => {
     },
   };
   const onButtonAddToDo = () => {
-    if (!value) {
+    if (value) {
       setTodos((todos) => [
         {
           id: Date.now(),
@@ -92,7 +92,7 @@ const App: React.FC = () => {
       database.table("taskdata").addRow(rowRequest);
     }
   };
-  const completedToDo = todos.filter((todo) => todo.complete == true);
+  //const completedtodo = todos.filter((todo) => todo.complete == true);
 
   const addToDB = (e: any) => {
     onButtonAddToDo();
@@ -121,8 +121,8 @@ const App: React.FC = () => {
           </Toolbar>
         </AppBar>
       </Box>
-      <div
-        style={{
+      <Box
+        sx={{
           position: "fixed",
           display: "flex",
           left: "5.5%",
@@ -159,9 +159,9 @@ const App: React.FC = () => {
         <Button sx={{ m: 1 }} variant="contained" onClick={addToDB}>
           Add
         </Button>
-      </div>
-      <div
-        style={{
+      </Box>
+      <Box
+        sx={{
           position: "fixed",
           display: "flex",
           left: "7.5%",
@@ -175,7 +175,7 @@ const App: React.FC = () => {
           toggleTodo={toggleTodo}
           handleClick={handleClick}
         />
-      </div>
+      </Box>
     </>
   );
 };

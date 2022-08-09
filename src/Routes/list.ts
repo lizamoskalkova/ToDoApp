@@ -1,7 +1,7 @@
 import { Home } from "@mui/icons-material";
-import ActualToDos from "../components/ActualToDos";
+import ActualToDos from "../components/ActualToDos/ActualToDos";
 import App from "../components/App";
-import PreviousToDos from "../components/PreviousToDos";
+import PreviousToDos from "../components/PreviousToDos/PreviousToDos";
 
 export const routes = [
   {
