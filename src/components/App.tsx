@@ -1,6 +1,5 @@
-import { FC, useState, useEffect, useCallback } from "react";
-import { ITodo } from "../data/data";
-import { ToDoList } from "./ToDoList";
+import { useState } from "react";
+import { ToDoList, IToDo } from "./ToDoList/ToDoList";
 import { RowRequest } from "icandev-js-sdk";
 import {
   TextField,
@@ -15,6 +14,7 @@ import { database } from "../icandev";
 import Drawer from "./Drawer";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { tgUser, tgUserName } from "../tgUser/User";
 
 let today: object = new Date();
 
@@ -22,13 +22,19 @@ const tele: any = Telegram.WebApp;
 
 tele.expand();
 
-const App: FC = () => {
-  const [value, setValue] = useState("");
-  const [todos, setTodos] = useState<ITodo[]>([]);
+const App: React.FC = () => {
+  const [value, setValue] = useState<string>("");
+  const [todos, setTodos] = useState<IToDo[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-
-  const addTodo = () => {
-    if (value !== "") {
+  const rowRequest: RowRequest = {
+    data: {
+      title: value,
+      user_id: tgUser?.toString() ?? '*',
+      first_name: tgUserName?.toString() ?? '*',
+    },
+  };
+  const onButtonAddToDo = () => {
+    if (!value) {
       setTodos((todos) => [
         {
           id: Date.now(),
@@ -41,13 +47,13 @@ const App: FC = () => {
     }
     setValue("");
   };
-  const removeTodo = (id: number): void => {
+  const removeTodo = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
-  const toggleTodo = (id: number): void => {
+  const toggleTodo = (id: number)=> {
     setTodos(
       todos.map((todo) => {
-        if (todo.id != id) return todo;
+        if (todo.id !== id) return todo;
         return {
           ...todo,
           complete: !todo.complete,
@@ -56,21 +62,23 @@ const App: FC = () => {
     );
   };
 
-  function strikeThrough(text: string) {
-    return text
+  const strikeThrough = (text: string): string => {
+    return (
+      text
       .split("")
       .map((char: string) => char + "\u0336")
-      .join("");
+      .join("")
+    );
   }
   const handleClick = (id: number): void => {
     todos.map((todo) => {
-      if (todo.id === id && todo.complete === false)
+      if (todo.id === id && !todo.complete)
         todo.title = strikeThrough(todo.title);
       else todo.title = todo.title.replace(/[\u0336]/g, "");
     });
   };
   const handleKeyDown = (e: any) => {
-    if (e.key == "Enter") {
+    if (e.key === "Enter") {
       setTodos((todos) => [
         {
           id: Date.now(),
@@ -81,27 +89,18 @@ const App: FC = () => {
         ...todos,
       ]);
       setValue("");
-      database.table("taskdata").addRow(rowrequest);
+      database.table("taskdata").addRow(rowRequest);
     }
   };
-  const completedtodo = todos.filter((todo) => todo.complete == true);
-  const found = todos.some((r) => completedtodo.indexOf(r) >= 0);
+  const completedToDo = todos.filter((todo) => todo.complete == true);
 
-  const rowrequest: RowRequest = {
-    data: {
-      title: value,
-      user_id: String(tele.initDataUnsafe.user?.id ?? "*"),
-      first_name: String(tele.initDataUnsafe.user?.first_name ?? "*"),
-    },
-  };
-
-  const onck = (e: any) => {
-    addTodo();
-    database.table("taskdata").addRow(rowrequest);
+  const addToDB = (e: any) => {
+    onButtonAddToDo();
+    database.table("taskdata").addRow(rowRequest);
   };
 
   return (
-    <div>
+    <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar
@@ -157,12 +156,11 @@ const App: FC = () => {
             />
           </Stack>
         </LocalizationProvider>
-        <Button sx={{ m: 1 }} variant="contained" onClick={onck}>
+        <Button sx={{ m: 1 }} variant="contained" onClick={addToDB}>
           Add
         </Button>
       </div>
       <div
-        className="todo"
         style={{
           position: "fixed",
           display: "flex",
@@ -178,7 +176,7 @@ const App: FC = () => {
           handleClick={handleClick}
         />
       </div>
-    </div>
+    </>
   );
 };
 
