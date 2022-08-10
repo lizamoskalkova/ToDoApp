@@ -31,10 +31,6 @@ const App: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const [text, setText] = useState("");
-  const addTask = () => {
-    dispatch(onButtonAddToDo(value, selectedDate));
-    setValue("");
-  };
   //const [todos, setTodos] = useState<IToDo[]>([]);
   const rowRequest: RowRequest = {
     data: {
@@ -43,7 +39,11 @@ const App: React.FC = () => {
       first_name: tgUserName?.toString() ?? "*",
     },
   };
-
+  const addTask = () => {
+    dispatch(onButtonAddToDo(value, selectedDate));
+    setValue("");
+    database.table("taskdata").addRow(rowRequest);
+  };
   const strikeThrough = (text: string): string => {
     return text
       .split("")
