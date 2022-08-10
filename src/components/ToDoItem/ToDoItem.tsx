@@ -3,6 +3,8 @@ import { FC } from "react";
 import { TextField, Checkbox, Stack } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 interface ITodoItem extends IToDo {
   removeTodo: (id: number) => void;
@@ -10,7 +12,7 @@ interface ITodoItem extends IToDo {
   handleClick: (id: number) => void;
 }
 
-const ToDoItem: FC<ITodoItem> = ({ id, title, complete, dueDate, removeTodo, toggleTodo, handleClick }) => {
+const ToDoItem = ({ title, dueDate }) => {
   return (
     <>
       <TextField
@@ -29,11 +31,11 @@ const ToDoItem: FC<ITodoItem> = ({ id, title, complete, dueDate, removeTodo, tog
       />
       <Checkbox
         id="check"
-        checked={complete}
-        onChange={() => toggleTodo(id)}
-        onClick={() => handleClick(id)}
+        //checked={complete}
+        //onChange={() => toggleTodo(id)}
+        //onClick={() => handleClick(id)}
       />
-      <IconButton aria-label="delete" onClick={() => removeTodo(id)}>
+      <IconButton aria-label="delete">
         <DeleteIcon />
       </IconButton>
     </>

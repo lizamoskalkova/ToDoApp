@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import { Menu } from "@mui/icons-material";
 import { useHistory } from "react-router-dom";
-import { tgUserName } from "../../tgUser/User";
+import { tgUserName } from "../../telegram";
 
 const Drawer = () => {
   const [open, setOpen] = useState<boolean>(false);

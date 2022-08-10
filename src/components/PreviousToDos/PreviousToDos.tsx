@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { database } from "../../icandev";
 import { Row } from "icandev-js-sdk";
 import { TextField, Typography } from "@mui/material";
-import { tgUser } from "../../tgUser/User";
+import { tgUser } from "../../telegram";
 
 const PreviousToDos = () => {
   const [userData, setUserData] = useState<Row[] | null>(null);
@@ -29,11 +29,7 @@ const PreviousToDos = () => {
       }}
     >
       {userData
-        ?.filter(
-          (user) =>
-            user.data.user_id ===
-            tgUser.toString()
-        )
+        ?.filter((user) => user.data.user_id === tgUser.toString())
         .map((user) => (
           <TextField
             inputProps={{
