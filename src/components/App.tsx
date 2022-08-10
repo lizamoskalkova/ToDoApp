@@ -50,12 +50,6 @@ const App: React.FC = () => {
       .map((char: string) => char + "\u0336")
       .join("");
   };
-
-  const addToDB = (e: any) => {
-    //addTask();
-    database.table("taskdata").addRow(rowRequest);
-  };
-
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
