@@ -1,5 +1,5 @@
 import ActualToDos from "../Components/ActualToDos/ActualToDos";
-import Home from "../Home/Home";
+import Home from "../Components/Home/Home";
 import PreviousToDos from "../Components/PreviousToDos/PreviousToDos";
 
 export const routes = [

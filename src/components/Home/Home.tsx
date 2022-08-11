@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { ToDoList } from "../Components/ToDoList/ToDoList";
+import { useState, useEffect } from "react";
+import { ToDoList } from "../ToDoList/ToDoList";
 import { RowRequest } from "icandev-js-sdk";
 import { useDispatch } from "react-redux";
-import { addToDo } from "../Store/todoSlice";
+import { addToDo, fetchTodos } from "../../Store/todoSlice";
 import {
   TextField,
   Button,
@@ -12,16 +12,17 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import { database } from "../icandev";
-import Drawer from "../Components/Drawer";
+import { database } from "../../icandev";
+import Drawer from "../Drawer";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { tgUser, tgUserName } from "../telegram";
+import { tgUser, tgUserName } from "../../telegram";
+import { AppDispatch } from "../../Store/store";
 
 const Home: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const rowRequest: RowRequest = {
     data: {
       title: value,
@@ -34,6 +35,9 @@ const Home: React.FC = () => {
     setValue("");
     database.table("taskdata").addRow(rowRequest);
   };
+
+ 
+  console.log(dispatch(fetchTodos()));
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>

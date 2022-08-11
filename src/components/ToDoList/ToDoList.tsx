@@ -8,7 +8,7 @@ const ToDoList = () => {
   const todos = useSelector((state: RootState)=> state.todos.todos)
   return (
     <Box sx={{ width: 400 }}>
-      {todos.map((todo) => (
+      {todos?.map((todo) => (
         <ToDoItem
           key={todo.id}
           {...todo}

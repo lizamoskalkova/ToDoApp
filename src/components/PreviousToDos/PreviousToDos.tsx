@@ -3,23 +3,18 @@ import { database } from "../../icandev";
 import { Row } from "icandev-js-sdk";
 import { TextField, Typography } from "@mui/material";
 import { tgUser } from "../../telegram";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../Store/store";
+import { fetchTodos } from "../../Store/todoSlice";
 
 const PreviousToDos = () => {
   const [userData, setUserData] = useState<Row[] | null>(null);
   let b = "";
-  useEffect(() => {
-    (async () => {
-      const a = await database.table("taskdata").getPage(1, 1000);
-      if (!a) return;
-      setUserData(a.rows);
-      for (const row of a.rows) {
-        //setUserData(row.data.user_id);
-        console.log(b);
-      }
-    })();
-  }, []);
+  
   console.log(userData?.[0].data.title);
-
+  useEffect(() => {
+    //useDispatch({fetchTodos()});
+    }, []);
   return (
     <div
       style={{
