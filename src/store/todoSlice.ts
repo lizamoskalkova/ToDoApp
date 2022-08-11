@@ -1,35 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IToDo } from "../components/ToDoList/ToDoList";
 import { v4 as uuidv4 } from "uuid";
 import { TelegramWebApps } from "telegram-webapps-types";
 
-const initialState = [] as IToDo[];
 const todoSlice = createSlice({
   name: "todos",
-  initialState,
-  reducers: {
-    onButtonAddToDo: {
-      reducer: (state, action: PayloadAction<IToDo>) => {
-        state.push(action.payload);
-      },
-      prepare: (title: string, dueDate: Date | null) => ({
-        payload: {
-          id: uuidv4(),
-          title,
-          dueDate,
-          complete: false,
-        } as IToDo,
-      }),
-    },
-    toggleTodo: (state, action) => {},
-    removeTodo(state, action: PayloadAction<string>) {
-      const index = state.findIndex((todo) => todo.id === action.payload);
-      state.splice(index, 1);
-    },
+  initialState: {
+      todos: [],
   },
+  reducers: {
+    addToDo(state, action) {
+        state.todos.push({
+          id: uuidv4(),
+          title: action.payload.value,
+          dueDate: action.payload.selectedDate,
+          complete: false,
+        });
+
+    },
+    toggleTodo: (state, action) => {
+        const toggledTodo = state.todos.find(todo => todo.id === action.payload.id);
+        toggledTodo.complete = !toggledTodo.complete;
+    },
+    removeTodo:(state, action) => {
+        state.todos = state.todos.filter(todo => todo.id !== action.payload.id);
+    },
+  }
 });
 
 
-export const { onButtonAddToDo, toggleTodo, removeTodo } = todoSlice.actions;
+export const { addToDo, toggleTodo, removeTodo } = todoSlice.actions;
 export default todoSlice.reducer;

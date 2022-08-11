@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ToDoList } from "./ToDoList/ToDoList";
+import { ToDoList } from "../Components/ToDoList/ToDoList";
 import { RowRequest } from "icandev-js-sdk";
 import { useDispatch } from "react-redux";
-import { onButtonAddToDo } from "../store/todoSlice";
+import { addToDo } from "../Store/todoSlice";
 import {
   TextField,
   Button,
@@ -13,21 +13,15 @@ import {
   Stack,
 } from "@mui/material";
 import { database } from "../icandev";
-import Drawer from "./Drawer";
+import Drawer from "../Components/Drawer";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { tgUser, tgUserName } from "../telegram";
-import type { AppDispatch } from "../store/store";
 
-
-const tele: any = Telegram.WebApp;
-
-tele.expand();
-
-const App: React.FC = () => {
+const Home: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const rowRequest: RowRequest = {
     data: {
       title: value,
@@ -36,15 +30,9 @@ const App: React.FC = () => {
     },
   };
   const addTask = () => {
-    dispatch(onButtonAddToDo(value, selectedDate));
+    dispatch(addToDo({value, selectedDate}));
     setValue("");
     database.table("taskdata").addRow(rowRequest);
-  };
-  const strikeThrough = (text: string): string => {
-    return text
-      .split("")
-      .map((char: string) => char + "\u0336")
-      .join("");
   };
   return (
     <>
@@ -121,4 +109,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Home;

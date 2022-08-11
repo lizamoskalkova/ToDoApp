@@ -1,13 +1,12 @@
-import { Home } from "@mui/icons-material";
-import ActualToDos from "../components/ActualToDos/ActualToDos";
-import App from "../components/App";
-import PreviousToDos from "../components/PreviousToDos/PreviousToDos";
+import ActualToDos from "../Components/ActualToDos/ActualToDos";
+import Home from "../Home/Home";
+import PreviousToDos from "../Components/PreviousToDos/PreviousToDos";
 
 export const routes = [
   {
     path: "/",
     exact: true,
-    component: App,
+    component: Home,
   },
   {
     path: "/PreviousToDos",

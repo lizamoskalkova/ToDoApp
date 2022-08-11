@@ -1,8 +1,11 @@
 import { TextField, Checkbox, Stack } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useDispatch } from "react-redux";
+import { removeTodo, toggleTodo } from "../../Store/todoSlice";
 
-const ToDoItem = ({ title, dueDate }) => {
+const ToDoItem = ({ id, title, complete, dueDate }) => {
+  const dispatch = useDispatch();
   return (
     <>
       <TextField
@@ -21,11 +24,11 @@ const ToDoItem = ({ title, dueDate }) => {
       />
       <Checkbox
         id="check"
-        //checked={complete}
-        //onChange={() => toggleTodo(id)}
+        checked={complete}
+        onChange={() => dispatch(toggleTodo({id}))}
         //onClick={() => handleClick(id)}
       />
-      <IconButton aria-label="delete">
+      <IconButton aria-label="delete" onClick = {()=>dispatch(removeTodo({id}))}>
         <DeleteIcon />
       </IconButton>
     </>
