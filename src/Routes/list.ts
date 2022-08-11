@@ -1,6 +1,6 @@
-import ActualToDos from "../components/ActualToDos";
-import Home from "../components/Home";
-import PreviousToDos from "../components/PreviousToDos";
+import ActualToDos from "../Components/ActualToDos/ActualToDos";
+import Home from "../Components/Home/Home";
+import PreviousToDos from "../Components/PreviousToDos/PreviousToDos";
 
 export const routes = [
   {

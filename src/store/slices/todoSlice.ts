@@ -21,18 +21,23 @@ export const fetchTodos = createAsyncThunk(
 );
 
 type TTodo = {
+  id: string;
+  title: string;
+  dueDate: string;
+  complete: boolean;
+};
+
+type DBTodo = {
   rowId: string;
   userId: string;
   userName: string;
-  id?: string;
   title: string;
-  dueDate?: string;
   complete: boolean;
 };
 
 interface ITodosState {
   todos: TTodo[];
-  todosFromDB: TTodo[];
+  todosFromDB: DBTodo[];
   userId: null | string;
 }
 
@@ -48,13 +53,14 @@ const todoSlice = createSlice({
   reducers: {
     addToDo: (state, { payload }) => ({
       ...state,
-      todos: [...state.todos.filter((todo) => todo)],
-      // state.todos?.push({
-      //   id: uuidv4(),
-      //   title: payload.value,
-      //   dueDate: payload.selectedDate,
-      //   complete: false,
-      // });
+      todos: [...state.todos,
+        {
+           id: uuidv4(),
+           title: payload.value,
+           dueDate: payload.selectedDate,
+           complete: false,
+        }
+      ]
     }),
     toggleTodo: (state, action) => {
       const toggledTodo = state.todos.find(
