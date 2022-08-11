@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React, { FC } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { routes } from "./list";
 
 const Routes: FC = () => {

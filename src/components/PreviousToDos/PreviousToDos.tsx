@@ -1,20 +1,16 @@
-import { FC, useEffect, useState } from "react";
-import { database } from "../../icandev";
+import { useEffect, useState } from "react";
 import { Row } from "icandev-js-sdk";
-import { TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import { tgUser } from "../../telegram";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../Store/store";
-import { fetchTodos } from "../../Store/todoSlice";
 
 const PreviousToDos = () => {
   const [userData, setUserData] = useState<Row[] | null>(null);
-  let b = "";
-  
-  console.log(userData?.[0].data.title);
+
   useEffect(() => {
+    console.log(userData?.[0].data.title);
     //useDispatch({fetchTodos()});
-    }, []);
+  }, []);
+
   return (
     <div
       style={{
@@ -24,7 +20,7 @@ const PreviousToDos = () => {
       }}
     >
       {userData
-        ?.filter((user) => user.data.user_id === tgUser.toString())
+        ?.filter((user) => user.data.user_id === tgUser?.toString())
         .map((user) => (
           <TextField
             inputProps={{

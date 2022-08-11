@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ToDoList } from "../ToDoList/ToDoList";
 import { RowRequest } from "icandev-js-sdk";
-import { useDispatch } from "react-redux";
-import { addToDo, fetchTodos } from "../../Store/todoSlice";
+import { addToDo, fetchTodos } from "../../store/slices/todoSlice";
 import {
   TextField,
   Button,
@@ -17,12 +16,14 @@ import Drawer from "../Drawer";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { tgUser, tgUserName } from "../../telegram";
-import { AppDispatch } from "../../Store/store";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 const Home: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const dispatch = useDispatch<AppDispatch>();
+  // теперь так
+  const dispatch = useAppDispatch();
+  const { todosFromDB } = useAppSelector((state) => state.todos);
   const rowRequest: RowRequest = {
     data: {
       title: value,
@@ -31,13 +32,19 @@ const Home: React.FC = () => {
     },
   };
   const addTask = () => {
-    dispatch(addToDo({value, selectedDate}));
+    dispatch(addToDo({ value, selectedDate }));
     setValue("");
     database.table("taskdata").addRow(rowRequest);
   };
 
- 
-  console.log(dispatch(fetchTodos()));
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("todosFromDB :>> ", todosFromDB);
+  }, [dispatch, todosFromDB]);
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
