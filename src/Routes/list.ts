@@ -1,0 +1,21 @@
+import ActualToDos from "../Components/ActualToDos";
+import Home from "../Components/Home/Home";
+import PreviousToDos from "../Components/PreviousToDos";
+
+export const routes = [
+  {
+    path: "/",
+    exact: true,
+    component: Home,
+  },
+  {
+    path: "/PreviousToDos",
+    exact: true,
+    component: PreviousToDos,
+  },
+  {
+    path: "/ActualToDos",
+    exact: true,
+    component: ActualToDos,
+  },
+];
