@@ -35,7 +35,7 @@ const Home: React.FC = () => {
     database.table("taskdata").addRow(rowRequest);
   };
 
-  if (page === false)
+  if (!page)
   { 
     return (
     <>
@@ -92,15 +92,12 @@ const Home: React.FC = () => {
     </>
   );
 }
-else
   return (
   <>
     <Header page={page} setPage={setPage}/>
       <PreviousToDos/>
   </>
-);
-}
-
-;
+  );
+};
 
 export default Home;
