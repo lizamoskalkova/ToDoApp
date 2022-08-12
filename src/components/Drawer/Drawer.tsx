@@ -9,16 +9,11 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Menu } from "@mui/icons-material";
-import { useHistory } from "react-router-dom";
 import { tgUserName } from "../../telegram";
 
-const Drawer = () => {
+const Drawer = ({test, setTest}) => {
   const [open, setOpen] = useState<boolean>(false);
-  const history = useHistory();
-  const handleRoute = (a: string) => {
-    history.push(a);
-    window.location.reload();
-  };
+
   return (
     <>
       <IconButton
@@ -41,10 +36,10 @@ const Drawer = () => {
           </Box>
           <Divider />
           <List>
-            <ListItem button onClick={() => handleRoute("/PreviousToDos")}>
+            <ListItem button onClick={() => setTest(!test)}>
               <ListItemText primary={"Previous ToDos"} />
             </ListItem>
-            <ListItem button onClick={() => handleRoute("/ActualToDos")}>
+            <ListItem button onClick={()=>{console.log('a')}}>
               <ListItemText primary={"Assigned ToDos"} />
             </ListItem>
           </List>

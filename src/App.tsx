@@ -1,8 +1,8 @@
-import Routes from "./Routes/Routes";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import { useEffect, useState } from "react";
 import { tgUserName } from "./telegram";
+import Home from "./Components/Home";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<string | null>(null);
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Routes />
+      <Home />
     </Provider>
   );
 }

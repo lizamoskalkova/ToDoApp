@@ -6,9 +6,6 @@ import {
   TextField,
   Button,
   Box,
-  AppBar,
-  Toolbar,
-  Typography,
   Stack,
 } from "@mui/material";
 import { database } from "../../icandev";
@@ -17,9 +14,12 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { tgUser, tgUserName } from "../../telegram";
 import { useAppDispatch, useAppSelector } from "../../store";
+import PreviousToDos from "../PreviousToDos";
+import Header from "../Header";
 
 const Home: React.FC = () => {
   const [value, setValue] = useState<string>("");
+  let [test, setTest] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   // теперь так
   const dispatch = useAppDispatch();
@@ -37,36 +37,11 @@ const Home: React.FC = () => {
     database.table("taskdata").addRow(rowRequest);
   };
 
-  useEffect(() => {
-    dispatch(fetchTodos());
-  }, [dispatch]);
-
-  useEffect(() => {
-    console.log("todosFromDB :>> ", todosFromDB);
-  }, [dispatch, todosFromDB]);
-
-  return (
+  if (test === false)
+  { 
+    return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar
-            style={{
-              justifyContent: "space-between ",
-            }}
-          >
-            <Drawer />
-            <Typography
-              style={{
-                fontFamily: "Tahoma",
-                color: "white",
-                alignContent: "center",
-              }}
-            >
-              ToDo App
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Box>
+     <Header test={test} setTest={setTest}/>
       <Box
         sx={{
           position: "fixed",
@@ -118,6 +93,16 @@ const Home: React.FC = () => {
       </Box>
     </>
   );
-};
+}
+else
+  return (
+  <>
+    <Header test={test} setTest={setTest}/>
+      <PreviousToDos/>
+  </>
+);
+}
+
+;
 
 export default Home;

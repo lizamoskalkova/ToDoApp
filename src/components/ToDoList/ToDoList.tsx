@@ -8,7 +8,6 @@ const ToDoList = () => {
   return (
     <Box sx={{ width: 400 }}>
       {todos?.map((todo) => (
-        // @ts-ignore
         <ToDoItem key={todo.id} {...todo} />
       ))}
     </Box>

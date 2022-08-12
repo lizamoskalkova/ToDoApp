@@ -66,7 +66,7 @@ const todoSlice = createSlice({
       const toggledTodo = state.todos.find(
         (todo) => todo.id === action.payload.id
       );
-      // toggledTodo.complete = !toggledTodo.complete;
+      //toggledTodo.complete = !toggledTodo.complete;
     },
     removeTodo: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload.id);

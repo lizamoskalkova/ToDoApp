@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react";
-import { Row } from "icandev-js-sdk";
+import { useEffect } from "react";
 import { TextField } from "@mui/material";
 import { tgUser } from "../../telegram";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { fetchTodos } from "../../store/slices/todoSlice";
 
 const PreviousToDos = () => {
-  const [userData, setUserData] = useState<Row[] | null>(null);
-
+  const dispatch = useAppDispatch();
+  const { todosFromDB } = useAppSelector((state) => state.todos);
+  
   useEffect(() => {
-    console.log(userData?.[0].data.title);
-    //useDispatch({fetchTodos()});
-  }, []);
-
+    dispatch(fetchTodos());
+  }, [dispatch]);
+  
+  useEffect(() => {
+    console.log("todosFromDB :>> ", todosFromDB);
+  }, [dispatch, todosFromDB]);
+  
   return (
     <div
       style={{
@@ -19,8 +24,8 @@ const PreviousToDos = () => {
         top: "100%",
       }}
     >
-      {userData
-        ?.filter((user) => user.data.user_id === tgUser?.toString())
+      {todosFromDB
+        //?.filter((user) => user.userId === tgUser?.toString())
         .map((user) => (
           <TextField
             inputProps={{
@@ -31,8 +36,8 @@ const PreviousToDos = () => {
                 color: "black",
               },
             }}
-            value={user.data.title}
-            key={user.data.id}
+            value={user.title}
+            key={user.userId}
           ></TextField>
         ))}{" "}
     </div>
@@ -40,4 +45,3 @@ const PreviousToDos = () => {
 };
 
 export default PreviousToDos;
-//console.log(database.table('taskdata').getPage(1,1000).rows.data);
