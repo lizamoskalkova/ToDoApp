@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Menu } from "@mui/icons-material";
 import { tgUserName } from "../../telegram";
 
-const Drawer = ({test, setTest}) => {
+const Drawer = ({page, setPage}) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -36,7 +36,7 @@ const Drawer = ({test, setTest}) => {
           </Box>
           <Divider />
           <List>
-            <ListItem button onClick={() => setTest(!test)}>
+            <ListItem button onClick={() => setPage(!page)}>
               <ListItemText primary={"Previous ToDos"} />
             </ListItem>
             <ListItem button onClick={()=>{console.log('a')}}>
