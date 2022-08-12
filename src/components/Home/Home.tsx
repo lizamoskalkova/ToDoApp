@@ -18,10 +18,9 @@ import { useState } from "react";
 
 const Home: React.FC = () => {
   const [value, setValue] = useState<string>("");
-  const [page, setPage] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const dispatch = useAppDispatch();
-  const { todosFromDB } = useAppSelector((state) => state.todos);
+  const { previousTasks } = useAppSelector((state) => state);
   const rowRequest: RowRequest = {
     data: {
       title: value,
@@ -35,11 +34,11 @@ const Home: React.FC = () => {
     database.table("taskdata").addRow(rowRequest);
   };
 
-  if (!page)
+  if (!previousTasks)
   { 
     return (
     <>
-     <Header page={page} setPage={setPage}/>
+     <Header/>
       <Box
         sx={{
           position: "fixed",
@@ -94,7 +93,7 @@ const Home: React.FC = () => {
 }
   return (
   <>
-    <Header page={page} setPage={setPage}/>
+    <Header/>
       <PreviousToDos/>
   </>
   );

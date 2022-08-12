@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
-import todoReducer from "./slices/todoSlice";
+import  { previoustasksReducer,todoReducer } from "./slices/todoSlice";
 
 export const store = configureStore({
   reducer: {
     todos: todoReducer,
+    previousTasks: previoustasksReducer,
   },
 });
 

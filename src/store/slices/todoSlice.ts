@@ -90,6 +90,16 @@ const todoSlice = createSlice({
   },
 });
 
-export const { addToDo, toggleTodo, removeTodo } = todoSlice.actions;
+const previousTask = createSlice({
+  name: 'previousTasks',
+  initialState: false,
+  reducers: {
+    changeState: state => true
+  }
+});
 
-export default todoSlice.reducer;
+
+export const { addToDo, toggleTodo, removeTodo } = todoSlice.actions;
+export const { changeState } = previousTask.actions;
+export const todoReducer = todoSlice.reducer;
+export const previoustasksReducer = previousTask.reducer;
