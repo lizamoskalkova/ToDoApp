@@ -1,11 +1,23 @@
 import { TextField, Checkbox, Stack } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDispatch } from "react-redux";
-import { removeTodo } from "../../store/slices/todoSlice";
+import { fetchTodos, removeTodo } from "../../store/slices/todoSlice";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { database } from "../../icandev";
 
-const ToDoItem = ({ id, title, complete, dueDate }) => {
-  const dispatch = useDispatch();
+const ToDoItem = ({ taskid, title, complete, dueDate }) => {
+  const dispatch = useAppDispatch();
+  const { todosFromDB } = useAppSelector((state) => state.todos);
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch, todosFromDB]);
+
+  const deleteTask = () => {
+    dispatch(removeTodo({ taskid }));
+    const deletedTask = todosFromDB.find(todo=>todo.taskid==taskid)?.rowId ?? "";
+    database.table("taskdata").deleteRow(deletedTask);
+  }
   return (
     <>
       <TextField
@@ -30,7 +42,7 @@ const ToDoItem = ({ id, title, complete, dueDate }) => {
       />
       <IconButton
         aria-label="delete"
-        onClick={() => dispatch(removeTodo({ id }))}
+        onClick={deleteTask}
       >
         <DeleteIcon />
       </IconButton>

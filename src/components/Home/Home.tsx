@@ -15,25 +15,41 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import PreviousToDos from "../PreviousToDos";
 import Header from "../Header";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Home: React.FC = () => {
   const [value, setValue] = useState<string>("");
+  const [taskid, setTaskId] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const dispatch = useAppDispatch();
   const { previousTasks } = useAppSelector((state) => state);
+  const { todos } = useAppSelector((state) => state);
+
   const rowRequest: RowRequest = {
     data: {
       title: value,
       user_id: tgUser?.toString() ?? "*",
       first_name: tgUserName?.toString() ?? "*",
+      dueDate: selectedDate?.toISOString() ?? "*",
+      taskid: taskid,
     },
   };
-  const addTask = () => {
-    dispatch(addToDo({ value, selectedDate }));
-    setValue("");
-    database.table("taskdata").addRow(rowRequest);
-  };
 
+  const handleEnter =(e: any) => {
+    setTaskId(uuidv4());
+    if(e.key == 'Enter') 
+    {
+      setTaskId(uuidv4());
+      addTask();
+    }
+  }
+
+  const addTask = () => {
+    dispatch(addToDo({ taskid, value, selectedDate }));
+    database.table("taskdata").addRow(rowRequest);
+    setValue("");
+  };
+ 
   if (!previousTasks)
   { 
     return (
@@ -51,6 +67,7 @@ const Home: React.FC = () => {
         <TextField
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleEnter}
           inputProps={{
             style: {
               width: 210,
