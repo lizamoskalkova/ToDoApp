@@ -1,7 +1,7 @@
-import { TextField, Checkbox, Stack } from "@mui/material";
+import { TextField, Checkbox, Stack, Box, Grid } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { fetchTodos, removeTodo } from "../../store/slices/todoSlice";
+import { fetchTodos, removeTodo, toggleTodo } from "../../store/slices/todoSlice";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { database } from "../../icandev";
@@ -31,13 +31,12 @@ const ToDoItem = ({ taskid, title, complete, dueDate }) => {
             color: "black",
           },
         }}
-        focused
-        margin="dense"
+        //focused margin="dense"
       />
       <Checkbox
         id="check"
         checked={complete}
-        // onChange={() => dispatch(toggleTodo({ id }))}
+        onChange={() => dispatch(toggleTodo({ taskid }))}
         //onClick={() => handleClick(id)}
       />
       <IconButton

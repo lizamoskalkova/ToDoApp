@@ -1,20 +1,25 @@
 import { useEffect } from "react";
-import { TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { tgUser } from "../../telegram";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { fetchTodos } from "../../store/slices/todoSlice";
+import { fetchTodos, removeTodo } from "../../store/slices/todoSlice";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { database } from "../../icandev";
 
 const PreviousToDos = () => {
   const dispatch = useAppDispatch();
   const { todosFromDB } = useAppSelector((state) => state.todos);
-  
+
+
+  /*const deleteTask = () => {
+    dispatch(removeTodo(todosFromDB.find));
+    const deletedTask = todosFromDB.find(todo=>todo.taskid===taskid)?.rowId ?? "";
+    database.table("taskdata").deleteRow(deletedTask);
+  }*/
   useEffect(() => {
     dispatch(fetchTodos());
-  }, [dispatch]);
-  
-  useEffect(() => {
-    console.log("todosFromDB :>> ", todosFromDB);
   }, [dispatch, todosFromDB]);
+  
   
   return (
     <div
@@ -26,8 +31,8 @@ const PreviousToDos = () => {
     >
       {todosFromDB
         //?.filter((user) => user.userId === tgUser?.toString())
-        .map((user) => (
-          <TextField
+        .map((user, index) => (
+          <><TextField
             inputProps={{
               style: {
                 width: 200,
@@ -37,8 +42,13 @@ const PreviousToDos = () => {
               },
             }}
             value={user.title}
-            key={user.rowId}
-          ></TextField>
+            key={user.taskid + index}
+          ></TextField><IconButton
+            aria-label="delete"
+            //onClick={deleteTask}
+          >
+              <DeleteIcon />
+            </IconButton></>
         ))}{" "}
     </div>
   );

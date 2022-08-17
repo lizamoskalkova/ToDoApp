@@ -6,8 +6,9 @@ import ToDoPage from "../ToDoPage";
 const Home: React.FC = () => {
 
 const { previousTasks } = useAppSelector((state) => state);
+console.log(previousTasks);
 
-if (!previousTasks)
+if (!previousTasks) 
 { 
   return (
     <>

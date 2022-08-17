@@ -1,8 +1,4 @@
-import { TaskOutlined } from "@mui/icons-material";
-import { useDefaultDates } from "@mui/x-date-pickers/internals";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { idText } from "typescript";
-import { v4 as uuidv4 } from "uuid";
 import { database } from "../../icandev";
 
 export const fetchTodos = createAsyncThunk(
@@ -64,12 +60,11 @@ const todoSlice = createSlice({
     toggleTodo: (state, action) => {
       const toggledTodo = state.todos.find(
         (todo) => todo.taskid === action.payload.taskid
-      )?.complete;
-      //toggledTodo.complete = !toggledTodo.complete;
+      );
+      toggledTodo!.complete = !toggledTodo?.complete;
     },
     removeTodo: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.taskid !== action.payload.taskid);
-      //console.log(action.payload.todo.rowId);
     },
   },
   extraReducers: (builder) => {
@@ -96,7 +91,7 @@ const previousTask = createSlice({
   name: 'previousTasks',
   initialState: false,
   reducers: {
-    changeState: state => true
+    changeState: state => !state
   }
 });
 

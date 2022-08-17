@@ -38,12 +38,15 @@ const Drawer = () => {
           </Box>
           <Divider />
           <List>
+          <ListItem button onClick={()=>dispatch(changeState())}>
+              <ListItemText primary={"Home"} />
+            </ListItem>
             <ListItem button onClick={()=>dispatch(changeState())}>
               <ListItemText primary={"Previous ToDos"} />
             </ListItem>
             <ListItem button onClick={()=>{console.log('a')}}>
               <ListItemText primary={"Assigned ToDos"} />
-            </ListItem>
+              </ListItem>
           </List>
         </>
       </SwipeableDrawer>

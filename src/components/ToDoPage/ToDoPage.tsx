@@ -64,33 +64,34 @@ const addTask = () => {
             onKeyDown={handleEnter}
              inputProps={{
                 style: {
-                    width: 210,
-                    height: 5,
+                    width: 200,
+                    height: 7,
                     fontFamily: "arial",
                     color: "black",
                     },
                 }}
             focused margin="dense" />
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Stack spacing={4} sx={{ width: "50px" }}>
+            <Stack  sx={{ width: "100px", m:1, pt:0 }}>
                   <DatePicker
                     value={selectedDate}
                     onChange={(newValue) => {setSelectedDate(newValue);}}
                     renderInput={(params) => <TextField size="small" {...params} />} />
                 </Stack>
         </LocalizationProvider>
-        <Button sx={{ m: 1 }} variant="contained" onClick={addTask}>
-            Add
+        <Button sx={{ m: 0, maxWidth: '30px', maxHeight: '30px', minWidth: '25px', minHeight: '25px'}} variant="contained" onClick={addTask}>
+            +
             </Button>
         </Box>
         <Box
         sx={{
             position: "fixed",
             display: "flex",
-            left: "7.5%",
-            width: 1000,
+            left: "5%",
             top: "40%",
+            width: 400,
             }}
+            m={1} pt={0}
         >
             <Box sx={{ width: 400 }}>
                 {todos?.map((todo) => (
