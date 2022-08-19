@@ -56,8 +56,6 @@ const addTask = () => {
             left: "5.5%",
             top: "30%",
             alignItems: "center",
-            justifyContent:"space-evenly",
-            padding: "20px 2px",
         }}
     >
      <TextField
@@ -74,14 +72,14 @@ const addTask = () => {
                 }}
             focused margin="dense" />
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Stack  sx={{ width: "60px", m: 1 }}>
+            <Stack  sx={{ width: "60px", m:1, pt:0 }}>
                   <DatePicker
                     value={selectedDate}
                     onChange={(newValue) => {setSelectedDate(newValue);}}
                     renderInput={(params) => <TextField size="small" {...params} />} />
                 </Stack>
         </LocalizationProvider>
-        <Button sx={{   maxWidth: '30px', maxHeight: '30px', minWidth: '25px', minHeight: '30px'}} variant="contained" onClick={addTask}>
+        <Button sx={{ m: 0, maxWidth: '30px', maxHeight: '30px', minWidth: '25px', minHeight: '25px'}} variant="contained" onClick={addTask}>
             +
             </Button>
         </Box>
