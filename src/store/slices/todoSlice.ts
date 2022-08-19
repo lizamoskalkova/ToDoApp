@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
 import { database } from "../../icandev";
 
 export const fetchTodos = createAsyncThunk(
@@ -20,24 +19,20 @@ export const fetchTodos = createAsyncThunk(
   }
 );
 
-type TTodo = {
-  id: string;
+type ITodo = {
   title: string;
   dueDate: string;
   complete: boolean;
+  rowId?: string;
+  userId?: string;
+  userName?: string;
+  taskid: string;
 };
 
-type DBTodo = {
-  rowId: string;
-  userId: string;
-  userName: string;
-  title: string;
-  complete: boolean;
-};
 
 interface ITodosState {
-  todos: TTodo[];
-  todosFromDB: DBTodo[];
+  todos: ITodo[];
+  todosFromDB: ITodo[];
   userId: null | string;
 }
 
@@ -55,7 +50,7 @@ const todoSlice = createSlice({
       ...state,
       todos: [...state.todos,
         {
-           id: uuidv4(),
+           taskid: payload.taskid,
            title: payload.value,
            dueDate: payload.selectedDate,
            complete: false,
@@ -64,25 +59,27 @@ const todoSlice = createSlice({
     }),
     toggleTodo: (state, action) => {
       const toggledTodo = state.todos.find(
-        (todo) => todo.id === action.payload.id
+        (todo) => todo.taskid === action.payload.taskid
       );
-      //toggledTodo.complete = !toggledTodo.complete;
+      toggledTodo!.complete = !toggledTodo?.complete;
     },
     removeTodo: (state, action) => {
-      state.todos = state.todos.filter((todo) => todo.id !== action.payload.id);
+      state.todos = state.todos.filter((todo) => todo.taskid !== action.payload.taskid);
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTodos.fulfilled, (state, { payload }) => {
       if (payload) {
         payload.rows.forEach((row) => {
-          const { first_name, is_done, title, user_id } = row.data;
+          const { first_name, is_done, title, user_id, duedate, taskid } = row.data;
           state.todosFromDB.push({
             userName: first_name,
             complete: is_done === "true" ? true : false,
             title,
             userId: user_id,
             rowId: row.id,
+            dueDate: duedate,
+            taskid,
           });
         });
       }
@@ -90,6 +87,16 @@ const todoSlice = createSlice({
   },
 });
 
-export const { addToDo, toggleTodo, removeTodo } = todoSlice.actions;
+const previousTask = createSlice({
+  name: 'previousTasks',
+  initialState: false,
+  reducers: {
+    changeState: state => !state
+  }
+});
 
-export default todoSlice.reducer;
+
+export const { addToDo, toggleTodo, removeTodo } = todoSlice.actions;
+export const { changeState } = previousTask.actions;
+export const todoReducer = todoSlice.reducer;
+export const previoustasksReducer = previousTask.reducer;

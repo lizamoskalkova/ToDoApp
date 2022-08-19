@@ -7,7 +7,7 @@ import {
 import Drawer from "../Drawer";
 
 
-const Header = ({page, setPage}) =>
+const Header = () =>
 {
     return (
     <Box sx={{ flexGrow: 1 }}>
@@ -17,7 +17,7 @@ const Header = ({page, setPage}) =>
           justifyContent: "space-between ",
         }}
       >
-        <Drawer page={page} setPage={setPage} />
+        <Drawer/>
         <Typography
           style={{
             fontFamily: "Tahoma",

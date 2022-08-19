@@ -10,9 +10,11 @@ import {
 import { useState } from "react";
 import { Menu } from "@mui/icons-material";
 import { tgUserName } from "../../telegram";
-
-const Drawer = ({page, setPage}) => {
+import { useAppDispatch, useAppSelector } from "../../store";
+import { changeState } from "../../store/slices/todoSlice";
+const Drawer = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -36,11 +38,11 @@ const Drawer = ({page, setPage}) => {
           </Box>
           <Divider />
           <List>
-            <ListItem button onClick={() => setPage(!page)}>
-              <ListItemText primary={"Previous ToDos"} />
+          <ListItem button onClick={()=>dispatch(changeState())}>
+              <ListItemText primary={"Home"} />
             </ListItem>
-            <ListItem button onClick={()=>{console.log('a')}}>
-              <ListItemText primary={"Assigned ToDos"} />
+            <ListItem button onClick={()=>dispatch(changeState())}>
+              <ListItemText primary={"Previous ToDos"} />
             </ListItem>
           </List>
         </>
