@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { IconButton, TextField } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import { tgUser } from "../../telegram";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { fetchTodos, removeTodo } from "../../store/slices/todoSlice";
@@ -18,39 +18,34 @@ const PreviousToDos = () => {
   }*/
   useEffect(() => {
     dispatch(fetchTodos());
-  }, [dispatch, todosFromDB]);
-  
-  
+  }, [dispatch]);
+
   return (
-    <div
-      style={{
-        left: "10.5%",
-        width: 100,
-        top: "100%",
-      }}
-    >
+    <Box  m={1} pt={2}>
       {todosFromDB
-        //?.filter((user) => user.userId === tgUser?.toString())
+        .filter((user) => user.userId === tgUser?.toString())
         .map((user, index) => (
-          <><TextField
+          <div key={index}>
+            <TextField
             inputProps={{
               style: {
                 width: 200,
+                left: "10.5%",
                 height: 5,
                 fontFamily: "arial",
                 color: "black",
               },
             }}
             value={user.title}
-            key={user.taskid + index}
+            
           ></TextField><IconButton
             aria-label="delete"
-            //onClick={deleteTask}
+            //onClick={()=>dispatch(removeTodo(user.taskid))}
           >
               <DeleteIcon />
-            </IconButton></>
+            </IconButton></div>
         ))}{" "}
-    </div>
+    </Box>
   );
 };
 
