@@ -18,7 +18,7 @@ const PreviousToDos = () => {
   }*/
   useEffect(() => {
     dispatch(fetchTodos());
-  }, [dispatch, todosFromDB]);
+  }, [dispatch]);
 
   return (
     <Box  m={1} pt={2}>
