@@ -54,4 +54,4 @@ const app = new ICanDevApp({
 
 ## Пример готового приложения
 
-<img src = "./todoapp.png">
+<img src = "todoapp.png">
