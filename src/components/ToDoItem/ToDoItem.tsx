@@ -11,7 +11,7 @@ const ToDoItem = ({ taskid, title, complete, dueDate }) => {
   const { todosFromDB } = useAppSelector((state) => state.todos);
   useEffect(() => {
     dispatch(fetchTodos());
-  }, [dispatch, todosFromDB]);
+  }, [dispatch]);
 
   const deleteTask = () => {
     dispatch(removeTodo({ taskid }));

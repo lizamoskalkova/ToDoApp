@@ -53,7 +53,7 @@ const addTask = () => {
         sx={{
             position: "fixed",
             display: "flex",
-            left: "5.5%",
+            left: "10.5%",
             top: "30%",
             alignItems: "center",
         }}
